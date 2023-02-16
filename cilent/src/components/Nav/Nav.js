@@ -56,6 +56,9 @@ function Nav() {
             <Link to="/profile">Profile</Link>
           </div>
           <div className="nav-list">
+            <Link to="/signup">Singup</Link>
+          </div>
+          <div className="nav-list">
             <Link to="/" onClick={handleLogOut}>Logout</Link>
           </div>
 
