@@ -3,8 +3,10 @@ import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./profile.css";
 import jwt_decode from "jwt-decode";
+import {  useCookies } from 'react-cookie';
 import M from "materialize-css/dist/js/materialize.min.js";
 const Profile = (props) => {
+  const [cookies, setCookie,removeCookie] = useCookies(['userId','username']);
     const params = useParams();
     const navigate = useNavigate();
     const [editData, setEditData] = useState({});

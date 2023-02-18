@@ -2,37 +2,39 @@ import React, { useState, useEffect, useScript } from "react";
 import jwt_decode from "jwt-decode";
 import { redirect, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import './Dashboard.css'
+import {  useCookies } from 'react-cookie';
+import './PolicyDashboard.css'
 import M from "materialize-css/dist/js/materialize.min.js";
-function Dashboard() {
+function Policy() {
+    const [cookies, setCookie,removeCookie] = useCookies(['userId','username']);
     const [data, setData] = useState([]);
     const navigate = useNavigate();
     const url = "http://day4.test/api/tip/";
     useEffect(() => {
         M.AutoInit();
 
-        axios.get(url + "register")
+        axios.post(url + "policy/user",{'user_id':parseInt( jwt_decode(cookies.userId).sub)})
       .then((res) => {
         console.log(res.data.data);
         const detail = res.data.data
         const arr = [];
         detail.forEach(ele => {
             arr.push(<tr>
-                <td>{ele.id}</td>
+                <td>{ele.insure_id}</td>
                 <td>{ele.title}</td>
                 <td>{ele.first_name}</td>
                 <td>{ele.last_name}</td>
-                <td>{ele.username}</td>
-                {/* <td>{ele.password}</td> */}
-                <td>{ele.email}</td>
-                <td>{ele.phone_number}</td>
-                <td>{ele.location1}</td>
-                <td>{ele.location2}</td>
-                <td>{ele.location3}</td>
+                <td>{ele.cover_date}</td>
+                <td>{ele.end_date}</td>
+                {/* <td>{ele.email}</td> */}
+                <td>{ele.premium}</td>
+                <td>{ele.benify_first_name}</td>
+                <td>{ele.benify_last_name}</td>
+                {/* <td>{ele.location3}</td>
                 <td>{ele.location4}</td>
                 <td>{ele.location5}</td>
-                <td>{ele.location6}</td>
-                <td><Link to={`/Profile/${ele.id}`}>Edit</Link></td>
+                <td>{ele.location6}</td> */}
+                <td><Link to={`/policy/${ele.id}`}>Edit</Link></td>
                 <td><button onClick={()=>{handleDelete(ele.id)}}>Delete</button></td>
               </tr>)
         });
@@ -48,10 +50,10 @@ function Dashboard() {
 
       const handleDelete = (id) =>{
         // e.preventDefault();
-        axios.delete(url + "register/"+id)
+        axios.delete(url + "policy/"+id)
         .then((res)=>{
           console.log(res)
-          navigate("/signup");})
+          navigate("/");})
         .catch((err)=>{console.log(err);})
 
        
@@ -61,20 +63,20 @@ function Dashboard() {
     <table className="striped  pink lighten-4  responsive-table">
     <thead className="pink darken-4 grey-text text-lighten-5">
       <tr > 
-            <th>Id</th>
+            <th>insure_id</th>
           <th>title</th>
           <th>first_name</th>
           <th>last_name</th>
-          <th>username</th>
+          {/* <th>username</th> */}
           {/* <th>password</th> */}
-          <th>email</th>
-          <th>phone_number</th>
-          <th>location1</th>
-          <th>location2</th>
-          <th>location3</th>
-          <th>location4</th>
+          <th>cover_date</th>
+          <th>end_date</th>
+          <th>premium</th>
+          <th>benify_first_name</th>
+          <th>benify_last_name</th>
+          {/* <th>location4</th>
           <th>location5</th>
-          <th>location6</th>
+          <th>location6</th> */}
           <th></th>
           <th></th>
           
@@ -91,4 +93,4 @@ function Dashboard() {
  )
 }
 
-export default Dashboard;
+export default Policy;

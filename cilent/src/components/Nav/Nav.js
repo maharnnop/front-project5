@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import jwt_decode from "jwt-decode";
 import { redirect, useNavigate, Link } from "react-router-dom";
 import './Nav.css'
+import { Cookies, useCookies } from 'react-cookie';
 // hamberger menu
 import * as FaIcons from 'react-icons/fa'
 import * as AiIcons from 'react-icons/ai';
@@ -10,21 +11,27 @@ import { IconContext } from 'react-icons';
 function Nav() {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => {setSidebar(!sidebar)};
+  const [cookies, setCookie,removeCookie] = useCookies(['userId','username']);
+  // const [user, setUser,removeUser] = useCookies(['username']);
 
   const navigate = useNavigate();
   
   const handleLogOut = (e) => {
-    localStorage.removeItem("jwt");
-    localStorage.removeItem("username");
+    // localStorage.removeItem("jwt");
+    // localStorage.removeItem("username");
+    removeCookie("userId",{path: "/"});
+    removeCookie("username",{path: "/"});
   };
 
-  if (localStorage.getItem("jwt") !== null) {
-    const decoded = jwt_decode(localStorage.getItem("jwt"));
-    const username = localStorage.getItem('username')
+  if (cookies.userId ) {
+    const decoded = jwt_decode(cookies.userId);
+    // const decoded = localStorage.getItem("jwt");
+    const username = cookies.username;
+
     return (
       <>
         <IconContext.Provider value={{ color: 'grey' }}>
-        <div className='navbar'>
+        <div className='navbar '>
         <Link className="left-nav" to="/">
         <img style={{ height: "70px" }}
           src="https://promotions.co.th/wp-content/uploads/2021/04/tipinsure.png" alt="logo-tip"/>
@@ -78,7 +85,8 @@ function Nav() {
     <Link className="left-nav" to="/">
     <img
       style={{ height: "70px" }}
-      src="https://media.istockphoto.com/id/613873370/vector/family-insurance-icon-flat-design.jpg?s=612x612&w=0&k=20&c=LUU3l6vSJbhEYPEJUVJpvl2MO4k_UQyCw1eTYthcIl8="
+      src="https://promotions.co.th/wp-content/uploads/2021/04/tipinsure.png"
+      alt="logo"
     />
     
   </Link>

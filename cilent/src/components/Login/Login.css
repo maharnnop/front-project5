@@ -1,0 +1,11 @@
+.card img{
+    height: 200px;
+    overflow: hidden;
+    width: auto;
+}
+#toast-container {
+    top: 0% !important;
+    right: auto !important;
+    bottom: auto;
+    left:7%;
+  }
