@@ -3,11 +3,13 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 import jwt_decode from "jwt-decode";
+import { useCookies } from 'react-cookie';
 import M from "materialize-css/dist/js/materialize.min.js";
 const SignUp = (props) => {
   useEffect(() => {
     M.AutoInit();
   }, []);
+  const [cookies, setCookie] = useCookies(['userId','username']);
   const navigate = useNavigate();
   const [signUpData, setSignUpData] = useState({});
   const url = "http://day4.test/api/tip/";
@@ -27,8 +29,10 @@ const SignUp = (props) => {
       .post(url + "register",signUpData)
       .then((res) => {
         console.log(res);
-        // let token = res.data.token.access;
-        // let username = res.data.token.username;
+        M.toast({html: "Signup success naja", displayLength: 4000})
+        setCookie("userId", res.data.token, {path: "/"});
+        setCookie("username", res.data.username, {path: "/"});
+    
         navigate("/dashboard");
         // localStorage.setItem("jwt", token);
         // localStorage.setItem("username", username);
@@ -112,6 +116,13 @@ const SignUp = (props) => {
             </div>
           </div>
           <div class="row">
+            <div class="input-field col s6">
+              <i class="material-icons prefix"></i>
+              <input id="id_card" name="id_card" type="tel" className="validate" onChange={handleChange}/>
+              <label for="id_card">ID-CARD</label>
+            </div>
+          </div>
+          <div class="row">
             <div class="input-field col s4">
               <i class="material-icons prefix">place</i>
               <input id="location1" name="location1" type="text" className="validate" onChange={handleChange}/>
@@ -155,50 +166,7 @@ const SignUp = (props) => {
               
             </div>
           </div>
-
-
-
-      <h1>Registration form</h1>
-      <div>
-        <form className="container-signup" onSubmit={handleSubmit}>
-          firstname:{" "}
-          <input
-            type="text"
-            name="first_name"
-            onChange={handleChange}
-            required
-          />
-          lastname:{" "}
-          <input
-            type="text"
-            name="last_name"
-            onChange={handleChange}
-            required
-          />
-          <br />
-          email:{" "}
-          <input type="text" name="email" onChange={handleChange} required />
-          birthday:{" "}
-          <input
-            type="date"
-            name="date_of_birth"
-            onChange={handleChange}
-            required
-          />
-          <br />
-          username:{" "}
-          <input type="text" name="username" onChange={handleChange} required />
-          password:{" "}
-          <input
-            type="password"
-            name="password"
-            onChange={handleChange}
-            required
-          />
-          <br />
-          <input className="signup-btn" type="submit" value="Sign-Up" />
-        </form>
-      </div>
+      
     </div>
   );
 };

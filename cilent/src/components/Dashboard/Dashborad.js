@@ -23,7 +23,7 @@ function Dashboard() {
                 <td>{ele.first_name}</td>
                 <td>{ele.last_name}</td>
                 <td>{ele.username}</td>
-                {/* <td>{ele.password}</td> */}
+                <td>{ele.id_card}</td>
                 <td>{ele.email}</td>
                 <td>{ele.phone_number}</td>
                 <td>{ele.location1}</td>
@@ -66,7 +66,7 @@ function Dashboard() {
           <th>first_name</th>
           <th>last_name</th>
           <th>username</th>
-          {/* <th>password</th> */}
+          <th>id_card</th>
           <th>email</th>
           <th>phone_number</th>
           <th>location1</th>

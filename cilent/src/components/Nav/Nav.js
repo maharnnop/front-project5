@@ -55,7 +55,7 @@ function Nav() {
             <Link to="/">Packages</Link>
           </div>
           <div className="nav-list">
-            <Link to="/invest">Invest</Link>
+            <Link to="/policy">Policy</Link>
           </div><div className="nav-list">
             <Link to="/dashboard">Dashboard</Link>
           </div>

@@ -1,4 +1,4 @@
-.container-signup{
+/* .container-signup{
     display: grid;
     grid-template-columns: 1fr 3fr 1fr 3fr;
     grid-template-rows: 40px 40px 40px 50px;
@@ -6,7 +6,7 @@
     margin-left: 100px;
     margin-right: 100px;
     align-items: center;
-  }
+  } */
 
   .signup-btn{
     grid-area: 4/1/5/5;
@@ -17,12 +17,12 @@
 }
 .card-regis{
   width: 90vw;
- 
+  
   margin: auto;
   align-items: center;
 }
-.con,.con img{
-  height: 800px;
+.card.horizontal.con,.card-image img {
+  height: 900px;
 }
 @media screen and (max-width: 600px) {
   .container-signup{
