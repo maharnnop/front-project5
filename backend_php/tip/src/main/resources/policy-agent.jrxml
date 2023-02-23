@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="policy-agent" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eba405db-d51a-4a32-9c3b-5cddc0d2cfb6">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="fisrtName" class="java.lang.String"/>
+	<field name="lastName" class="java.lang.String"/>
+	<field name="title" class="java.lang.String"/>
+	<field name="birthDate" class="java.util.Date"/>
+	<field name="idCard" class="java.lang.String"/>
+	<field name="location1" class="java.lang.String"/>
+	<field name="location2" class="java.lang.String"/>
+	<field name="location3" class="java.lang.String"/>
+	<field name="location4" class="java.lang.String"/>
+	<field name="location5" class="java.lang.String"/>
+	<field name="location6" class="java.lang.String"/>
+	<field name="Field_6" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="39" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="190" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="39" backcolor="#D9EDF6" uuid="1e583cc1-ec29-47a5-ba47-287f53e8cf09"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="39" uuid="73ce2c47-18af-4ee6-9412-a5d43f3c4959"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="14"/>
+				</textElement>
+				<text><![CDATA[ใบคำขอเอาประกันภัย กรมธรรม์ประกันชีวิต (ตัวแทน/นายหน้า)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="40" width="555" height="150" uuid="abaec5eb-88bc-4ae4-a5af-1090a3827407"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="40" width="555" height="30" uuid="5310e6d4-4555-4ef4-9cba-085482890781"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<text><![CDATA[   1.รายละเอียดผู้ขอเอาประกันภัย]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="70" width="555" height="30" uuid="f97e20fb-6f8e-4395-a499-d63ac8ae7321"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<text><![CDATA[    คำนำหน้า		ชื่อ				นามสกุล]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="555" height="30" uuid="1c21f890-05e9-44ec-a68c-31caaa1e757e"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<text><![CDATA[    วัน/เดือน/ปีเกิด				เลขที่บัตรประจำตัวประชาชน			]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="130" width="555" height="30" uuid="9304f3e6-efc7-4ec5-87ad-a0bd87c86a4b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<text><![CDATA[    บ้านเลขที่		ถนน			ตำบล				อำเภอ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="160" width="555" height="30" uuid="7bc7669c-fa57-43d5-8b76-8d5f0e179412">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<text><![CDATA[    จังหวัด				รหัสไปรณษีย์			เบอร์โทรศัพท์]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="70" width="100" height="30" uuid="1cd4fbe2-7402-4a88-9e44-d52793326448"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="70" width="100" height="30" uuid="3b0cd3ce-bd9a-486e-8faf-4ce474fff516"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fisrtName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="70" width="100" height="30" uuid="9904f404-bc70-4c7d-9710-00648f143e58"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="100" width="100" height="30" uuid="8d3c042d-e6dd-4364-b8b4-c84f1c6cfd9c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{birthDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="100" width="100" height="30" uuid="fa20c80c-37ed-4303-9879-6d2d43afd94c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idCard}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="130" width="100" height="30" uuid="81e4efad-4e42-4ed4-857e-4e097a6e532b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{location1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="130" width="100" height="30" uuid="224493a4-07e1-4e9b-82f4-66fd7076267a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{location2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="130" width="100" height="30" uuid="db7ae060-5550-4b77-998c-59ab18fb7f91"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{location3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="130" width="100" height="30" uuid="927fb5e4-1939-485e-ae51-c44fa542b010"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{location4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="160" width="100" height="30" uuid="273255d4-f19b-433a-92e2-6a64b616b993"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{location5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="160" width="100" height="30" uuid="8a40b2dd-3462-4dd2-8577-f7111ea409a6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Field_6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="160" width="100" height="30" uuid="f8e5ddb9-185c-4d8c-aeae-4d374df6fced"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="60" uuid="06274db4-2142-4c98-a9ae-14740494a849"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="30" uuid="28fcd365-e125-4c69-b1fc-e2b28cc2eb58"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<text><![CDATA[   2.ผู้ขอรับผลประโยชน์]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="555" height="30" uuid="ab3bdfb3-3afa-4547-9a89-2f21ecfcf75c"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<text><![CDATA[   ชื่อ			นามสกุล			ความสัมพันธ์]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="30" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="30" uuid="77f21e01-ed5b-42c9-a576-c17cecc886b6"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="30" uuid="b482e894-84a6-4648-8e9d-e1e637536bdd"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<text><![CDATA[   3.ระยะเวลาเอาประกันภัย: 	เริ่มต้นวันที่			สิ้นสุดวันที่		]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="112" splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="50"/>
+	</lastPageFooter>
+</jasperReport>

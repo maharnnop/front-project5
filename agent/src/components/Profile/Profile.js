@@ -1,150 +1,175 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import LoadingSpinner from "../Loading/Loading";
-import './Profile.css'
-
+import { Link, useNavigate, useParams } from "react-router-dom";
+import "./profile.css";
 import jwt_decode from "jwt-decode";
-
-const Profile = () => {
-    const user_id =jwt_decode(localStorage.getItem("jwt"))['user_id']
-  const navigate = useNavigate();
-  const [userData, setUserData] = useState({});
-  const [insureData, setInsureData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const url = 'http://localhost:8000';
+import {  useCookies } from 'react-cookie';
+import M from "materialize-css/dist/js/materialize.min.js";
+const Profile = (props) => {
+  const [cookies, setCookie,removeCookie] = useCookies(['userId','username']);
+    const params = useParams();
+    const navigate = useNavigate();
+    const [editData, setEditData] = useState({});
+    const [title,setTitle] = useState([]);
+    const [data, setData] = useState([]);
+    const url = "http://day4.test/api/tip/";
   
-  const handledelete = (e)=>{
-    e.preventDefault()
-    // console.log(e.target.name);
-    axios.defaults.xsrfCookieName = 'csrftoken'
-    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+  useEffect(() => {
+      M.AutoInit();
     axios
-      .delete(url + "/insure/user/"+e.target.name,{
-        headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}`}
-      })
+      .get(url + "register/"+params.id)
       .then((res) => {
-        alert("remove package done");
-        navigate("/");
-        // document.cookies.set("jwt",token)
-      })
-      .catch((err) => {
-        if (err.response.status === 400) {
-          alert("remove package fail");
-        } else {
-          console.log(err);
-        }
-      });
-  }
-
-useEffect(()=>{
-    setIsLoading(true)
-    axios.get(url + "/user/"+user_id,{
-        headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}`}
-      })
-      .then((res)=>{
+        console.log(res);
+        setEditData(res.data.data)
         
-        setUserData(res.data)
-        const insure =[]
-        res.data.users_user_insure.map(item=>{
-          let ht = [<form className="mypack" name={item.id} onSubmit={handledelete}>
-                      <h3 className="pack-name"><span></span>{item.insure.name}</h3>
-                      <h3 className="pack-pre"><span>premium : </span>{item.insure.premium}</h3>
-                      <h3 className="pack-com"><span>compensate : </span>{item.insure.compensation}</h3>
-                      <input className="del-btn" type="submit" value="Remove"/>
-          </form>]
-          insure.push(ht)
-        })
-        setInsureData(insure)
-        setIsLoading(false)
-      })
-      .catch(err=>{
-        console.log(err);
-      })
-},[])
+        // M.FormSelect.init(res.data.data.title)
+      }).catch((err)=>{})
 
+  }, []);
 
-
+ 
+ 
   const handleChange = (e) => {
-    setUserData((prevState) => ({
+    setEditData((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value,
+      [e.target.id]: e.target.value,
     }));
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.defaults.xsrfCookieName = 'csrftoken'
-    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
     axios
-      .patch(url + "/user/"+user_id, userData,{
-        headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}`}
-      })
+      .put(url + "register/"+params.id ,editData)
       .then((res) => {
-        
-        navigate("/");
-        // document.cookies.set("jwt",token)
+        console.log(res);
+        navigate("/dashboard");
       })
       .catch((err) => {
         if (err.response.status === 400) {
-          alert("username update fail");
+          alert("username already exists");
         } else {
           console.log(err);
         }
       });
   };
-
+  
   return (
-    <div>
-        <h1>Profile form</h1>
-        
-          <form className="container-input" onSubmit={handleSubmit}>
-          
-            username:{" "}
-            <input
-              type="text"
-              name="username"
-              onChange={handleChange}
-              defaultValue={userData.username}
-              required
-            />
-           
-            firstname:{" "}
-            <input
-              type="text"
-              name="first_name"
-              defaultValue={userData.first_name}
-              onChange={handleChange}
-              required
-            />
-            lastname:{" "}
-            <input
-              type="text"
-              name="last_name"
-              defaultValue={userData.last_name}
-              onChange={handleChange}
-              required
-            />
-           
-            email:{" "}
-            <input
-              type="text"
-              name="email"
-              defaultValue={userData.email}
-              onChange={handleChange}
-              required
-            />
-            birthday:{" "}
-            <input type="date" name="date_of_birth" defaultValue={userData.date_of_birth} onChange={handleChange} required />
-            
-            <input className="edit-btn" type="submit" value='Edit'/>
-          </form>
-        
-        <div className="packages">
-            <h2>my insurances</h2>
-            {isLoading ? <LoadingSpinner /> : null}
-            {insureData}
-        </div>
+    <div className="card-regis ">
+      
+      <div className="card horizontal con" >
+            <div class="card-image">
+              <img
+                src="https://img.lovepik.com/background/20211030/medium/lovepik-highway-mobile-phone-wallpaper-background-image_400458398.jpg"
+                alt="i"
+              />
+            </div>
+            <div class="card-stacked">
+              <div class="z-depth-5 card-panel   blue darken-4">
+                <h5 className="grey-text text-lighten-5">Register</h5>
+              </div>
+              <div class="card-content">
+              <div class="row">
+              <form class="col s12" onSubmit={handleSubmit}>
+    <div class="row">
+     
+      <div class="input-field col s4">
+        <i class="material-icons prefix"></i>
+        <select id="title" name="title" onChange={handleChange} defualValue={editData.title}>
+        <option value={editData.title} disabled selected>{editData.title}</option>
+          <option value="Ms.">Ms.</option>
+          <option value="Mr." >Mr.</option>
+        </select>
+     
+        <label>Title</label>
+      </div>
+      <div class="input-field col s4">
+        <input id="first_name" name="first_name" type="text" className="validate" onChange={handleChange} value={editData.first_name} />
+        <label class="active" for="first_name">First Name</label>
+      </div>
+      <div class="input-field col s4">
+        <input id="last_name" name="last_name" type="text" className="validate" onChange={handleChange} value={editData.last_name}/>
+        <label  class="active" for="last_name">Last Name</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="username" name="username" type="text" className="validate" onChange={handleChange} value={editData.username}/>
+        <label class="active" for="username">Username</label>
+      </div>
+      <div class="input-field col s6">
+        <input id="password" name="password" type="password" className="validate" onChange={handleChange} value={editData.password}/>
+        <label class="active" for="password">Password</label>
+        <span class="helper-text" data-error="wrong" data-success="right">
+          Helper text
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <i class="material-icons prefix">mail</i>
+        <input id="email" name="email" type="email" className="validate" onChange={handleChange} value={editData.email}/>
+        <label class="active" for="email">Email</label>
+        <span class="helper-text" data-error="wrong" data-success="right">
+          Helper text
+        </span>
+      </div>
+      <div class="input-field col s6">
+        <i class="material-icons prefix">phone</i>
+        <input id="phone_number" name="phone_number" type="tel" className="validate" onChange={handleChange} value={editData.phone_number}/>
+        <label class="active" for="phone_number">Telephone</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s4">
+        <i class="material-icons prefix">place</i>
+        <input id="location1" name="location1" type="text" className="validate" onChange={handleChange} value={editData.location1}/>
+        <label class="active" for="location1">บ้านเลขที่</label>
+      </div>
+      <div class="input-field col s4">
+        <input id="location2" name="location2" type="text" className="validate" onChange={handleChange} value={editData.location2}/>
+        <label class="active" for="location2">ถนน</label>
+      </div>
+      <div class="input-field col s4">
+        <input id="location3" name="location3" type="text" className="validate" onChange={handleChange} value={editData.location3}/>
+        <label class="active" for="location3">ตำบล</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s4">
+        <i class="material-icons prefix"></i>
+        <input id="location4" name="location4" type="text" className="validate" onChange={handleChange} value={editData.location4}/>
+        <label class="active" for="location4">อำเภอ</label>
+      </div>
+      <div class="input-field col s4">
+        <input id="location5" name="location5" type="text" className="validate" onChange={handleChange} value={editData.location5}/>
+        <label class="active" for="location5">จังหวัด</label>
+      </div>
+      <div class="input-field col s4">
+        <input id="location6" name="location6" type="text" className="validate" onChange={handleChange} value={editData.location6}/>
+        <label class="active" for="location6">Post No.</label>
+      </div>
+    </div>
+    <div className="row">
+      <input
+        className="btn-large waves-effect waves-light pulse "
+        type="submit"
+        value="Edit"
+      />
+    </div>
+  </form>
+    
+      
+      </div>
+              </div>
+              
+            </div>
+          </div>
+
+
+
+   
     </div>
   );
 };

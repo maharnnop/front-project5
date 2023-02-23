@@ -25,7 +25,22 @@ const PackageDetail = (props) => {
         user_id: parseInt(jwt_decode(cookies.userId).sub),
       }));
     }
+    axios
+      .get(url + "insure/"+parseInt(params.id))
+      .then((res) => {
+        console.log(res);
+        setEditData((prevState) => ({
+          ...prevState,
+          'premium': res.data.data.premium,
+          'period_day':res.data.data.period_day,
+        }))
+      })
+      .catch((err) => {
+          console.log(err);
+      });
   }, []);
+
+  //form state
   useEffect(()=>{
     setFormData(<form class="col s12" onSubmit={handleSubmit}>
     <div class="row">
@@ -67,18 +82,18 @@ const PackageDetail = (props) => {
     <div class="row">
     <div class="input-field col s4">
         <i class="material-icons prefix"></i>
-        <input id="premium" name="premium" type="number" className="validate" onChange={handleChange} value={editData.primium}/>
+        <input id="premium" disabled name="premium" type="number" className="validate" onChange={handleChange} value={editData.premium}/>
         <label class="active" for="premium">Premium</label>
       </div>
       <div class="input-field col s4">
         <i class="material-icons prefix"></i>
-        <input id="cover_date" name="cover_date" type="date" className="validate" onChange={handleChange} value={editData.cover_date}/>
+        <input id="cover_date" name="cover_date" type="date" className="validate" onChange={handleDate} value={editData.cover_date}/>
         <label class="active" for="cover_date">Coverage Start</label>
         
       </div>
       <div class="input-field col s4">
         <i class="material-icons prefix"></i>
-        <input id="end_date" name="end_date" type="date" className="validate" onChange={handleChange} value={editData.end_date}/>
+        <input id="end_date" name="end_date" disabled type="date" className="validate" onChange={handleChange} value={editData.end_date}/>
         <label class="active" for="end_date">Coverage End</label>
       </div>
     </div>
@@ -142,13 +157,28 @@ const PackageDetail = (props) => {
         type="submit"
         value="submit"
       />
+      <button className="waves-effect waves-light btn" onClick={handleSave}>
+        <i class="material-icons left">cloud</i>Save Draft
+      </button>
     </div>
   </form>)
   },[editData])
+
   const handleChange = (e) => {
     setEditData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
+    }));
+  };
+
+  const handleDate = (e) => {
+    const coverDate = new Date(e.target.value);
+    coverDate.setDate(coverDate.getDate() + editData['period_day'])  
+    const endDate = coverDate.toISOString().split('T')[0];
+    setEditData((prevState) => ({
+      ...prevState,
+      'cover_date': e.target.value,
+      'end_date': endDate,
     }));
   };
 
@@ -158,30 +188,18 @@ const PackageDetail = (props) => {
       .get(url + "register/"+parseInt(jwt_decode(cookies.userId).sub))
       .then((res) => {
         console.log(res);
+        const data = {...res.data.data,...editData,'id':null}
         setEditData(
-          res.data.data)
+          data)
       })
       .catch((err) => {
-     
           console.log(err);
-        
       });
+      
   };
 
-  const handleSubmit = (e) => {
+  const handleSave = (e) => {
     e.preventDefault();
-    if (cookies.userId) {
-      setEditData((prevState) => ({
-        ...prevState,
-        insure_id: parseInt(params.id),
-        user_id: parseInt(jwt_decode(cookies.userId).sub),
-      }));
-    }else{
-      setEditData((prevState) => ({
-        ...prevState,
-        insure_id: parseInt(params.id),
-      }));
-    }
     console.log(editData);
     // axios.defaults.xsrfCookieName = "csrftoken";
     // axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
@@ -206,6 +224,15 @@ const PackageDetail = (props) => {
         }
       });
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setEditData((prevState) => ({
+      ...prevState,
+      'is_draft': false,
+    }))
+    handleSave(e);
+  }
 
   return (
     <div className="card-regis z-depth-1">

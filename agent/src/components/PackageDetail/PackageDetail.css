@@ -1,49 +1,52 @@
-.insure-detail{
+.container-signup{
     display: grid;
-    grid-template-columns: 2fr 3fr;
-   grid-template-rows: 2fr 1fr; 
-   gap: 20px;
+    grid-template-columns: 1fr 3fr 1fr 3fr;
+    grid-template-rows: 40px 40px 40px 50px;
+    margin: 20px;
     margin-left: 100px;
     margin-right: 100px;
-    align-content: center;
-    
+    align-items: center;
+  }
+
+  .signup-btn{
+    grid-area: 4/1/5/5;
+    width: 80px;
+    height: 30px;
+    margin-top: 20px;
+    margin: 0 auto;
 }
-.img-detail{
-    height: 250px;
-    grid-area: 1/1/3/2;
+.card-regis{
+  width: 80vw;
+ /* padding: 50px; */
+ /* margin: auto; */
+ margin-top: 100px;
+  align-items: center;
 }
-.descript-insure {
+.card-regis form{
+  padding: 50px;
+}
+.card-regis h4{
+  padding: 20px;
+}
+.con,.con img{
+  height: 800px;
+}
+@media screen and (max-width: 600px) {
+  .container-signup{
     display: grid;
-    grid-area: 1/2/2/3;
-    grid-template-rows: 40px 50px 40px 40px  ;
-    justify-items: start;
-   
- }
- @media screen and (max-width: 1000px) {
-    .insure-detail{
-        display: grid;
-        grid-template-columns: 1fr;
-       grid-template-rows: 0.5fr 0.5fr 2fr 1fr; 
-        margin-left: 20px;
-        margin-right: 20px;
-        
-        align-content: center;
-        
-    }
-    
-.img-detail{
+    grid-template-columns: 1fr 3fr ;
+    grid-template-rows:  repeat(6, 40px) 50px; 
+    margin: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    align-items: center;
+  }
+
+  .signup-btn{
+    grid-area: 7/1/8/3;
+    width: 80px;
+    height: 30px;
+    margin-top: 20px;
     margin: auto;
-    height: 100px;
-    grid-area: 1/1/2/2;
 }
-.descript-insure {
-    display: grid;
-    grid-area: 2/1/3/2;
-    grid-template-rows: 40px 50px 40px 40px  ;
-    justify-items: start;
-   
- }
-}
-.buyform{
-    background:transparent
 }
