@@ -10,10 +10,11 @@ function Policy() {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
     const url = "http://day4.test/api/tip/";
+    const token = { Authorization: `Bearer ${cookies.userId}` }
     useEffect(() => {
         M.AutoInit();
-
-        axios.post(url + "policy/user",{'user_id':parseInt( jwt_decode(cookies.userId).sub)})
+       
+        axios.post(url + "policy/user",{'user_id':parseInt( jwt_decode(cookies.userId).sub)},{headers: token})
       .then((res) => {
         console.log(res.data.data);
         const detail = res.data.data
@@ -34,8 +35,8 @@ function Policy() {
                 <td>{ele.location4}</td>
                 <td>{ele.location5}</td>
                 <td>{ele.location6}</td> */}
-                <td><Link to={`/policy/${ele.id}`}>Edit</Link></td>
-                <td><button onClick={()=>{handleDelete(ele.id)}}>Delete</button></td>
+                <td><Link to={`/policy/${ele.id}`}>See detail</Link></td>
+                
               </tr>)
         });
         setData(arr);
@@ -78,7 +79,7 @@ function Policy() {
           <th>location5</th>
           <th>location6</th> */}
           <th></th>
-          <th></th>
+          
           
          
       </tr>

@@ -8,6 +8,7 @@ import Profile from "./components/Profile/Profile";
 import PackageDetail from "./components/PackageDetail/PackageDetail";
 import PolicyDashboard from "./components/PolicyDashboard/PolicyDashboard";
 import Policy from "./components/Policy/Policy";
+import Draft from "./components/Draft/Draft";
 // import Invest from "./components/Invest/Invest";
 // import InvestDetail from "./components/InvestDetail/InvestDetail";
 import Dashboard from "./components/Dashboard/Dashborad";
@@ -31,16 +32,15 @@ function App() {
           <Route path="/packages/:id" element={<PackageDetail />} />
           <Route path="/policy" element={<PolicyDashboard />} />
           <Route path="/policy/:id" element={<Policy />} />
+          <Route path="/draft/:id" element={<Draft />} />
           {/* <Route path="/fund/:id" element={<InvestDetail />} /> */}
-          <Route path="/profile/:id" element={<Profile />} /> 
+          <Route path="/profile" element={<Profile />} /> 
           <Route path="/dashboard" element={<Dashboard />} />
           {/* <Route path="/invest" element={<Invest />} /> */}
           {/* <Route path="/test" element={<Test />} /> */}
         </Routes>
       </main>
-      <footer>
-        <h3>insurances funds <span>About us : </span>@KWANMHN</h3>
-      </footer>
+      
       
     </div>
   );

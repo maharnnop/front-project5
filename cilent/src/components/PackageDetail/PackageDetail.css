@@ -31,6 +31,9 @@
 .con,.con img{
   height: 800px;
 }
+h5.indigo-text{
+  padding: 10px;
+}
 @media screen and (max-width: 600px) {
   .container-signup{
     display: grid;

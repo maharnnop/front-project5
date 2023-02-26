@@ -56,15 +56,16 @@ function Nav() {
           </div>
           <div className="nav-list">
             <Link to="/policy">Policy</Link>
-          </div><div className="nav-list">
-            <Link to="/dashboard">Dashboard</Link>
           </div>
+          {/* <div className="nav-list">
+            <Link to="/dashboard">Dashboard</Link>
+          </div> */}
           <div className="nav-list">
             <Link to="/profile">Profile</Link>
           </div>
-          <div className="nav-list">
+          {/* <div className="nav-list">
             <Link to="/signup">Singup</Link>
-          </div>
+          </div> */}
           <div className="nav-list">
             <Link to="/" onClick={handleLogOut}>Logout</Link>
           </div>

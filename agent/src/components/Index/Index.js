@@ -54,10 +54,10 @@ const Index = () =>{
   return (
     <div >
       <h1 >Insurance Packages</h1>
-       {/* {isLoading ? <LoadingSpinner /> : null} */}
-      {/* <div className="container-package">{packages}</div> */}
+      
       {/* <!-- Modal Trigger --> */}
-  <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Draft</a>
+      {cookies.userId? <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Draft</a>:null}
+  
 
   {/* <!-- Modal Structure --> */}
   <div id="modal1" class="modal">

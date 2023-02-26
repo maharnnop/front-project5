@@ -6,11 +6,14 @@
     justify-content: center;
 }
 h1{
-    background-color: #0f0e9f;
+    /* background-color: #0f0e9f; */
     margin-top: 0;
     padding: 20px;
-    color: white;
+    color: #0f0e9f;
 }
+/* table  {
+    border-radius: 50px;
+  } */
 @media screen and (max-width: 1000px) {
     .container-package{
         margin: auto;

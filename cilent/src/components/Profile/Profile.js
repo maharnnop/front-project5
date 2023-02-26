@@ -13,11 +13,12 @@ const Profile = (props) => {
     const [title,setTitle] = useState([]);
     const [data, setData] = useState([]);
     const url = "http://day4.test/api/tip/";
+    const token = { Authorization: `Bearer ${cookies.userId}` }
   
   useEffect(() => {
       M.AutoInit();
     axios
-      .get(url + "register/"+params.id)
+      .get(url + "register/"+parseInt(jwt_decode(cookies.userId).sub),{headers: token})
       .then((res) => {
         console.log(res);
         setEditData(res.data.data)
@@ -40,8 +41,9 @@ const Profile = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put(url + "register/"+params.id ,editData)
+      .put(url + "register/"+parseInt(jwt_decode(cookies.userId).sub),editData,{headers: token})
       .then((res) => {
+        M.toast({html: "profile updated ", displayLength: 4000})
         console.log(res);
         navigate("/dashboard");
       })
@@ -75,13 +77,9 @@ const Profile = (props) => {
      
       <div class="input-field col s4">
         <i class="material-icons prefix"></i>
-        <select id="title" name="title" onChange={handleChange} defualValue={editData.title}>
-        <option value={editData.title} disabled selected>{editData.title}</option>
-          <option value="Ms.">Ms.</option>
-          <option value="Mr." >Mr.</option>
-        </select>
-     
-        <label>Title</label>
+        <input id="title" name="title" type="text" className="validate" onChange={handleChange} value={editData.title} />
+        <label class="active" for="title">Title</label>
+       
       </div>
       <div class="input-field col s4">
         <input id="first_name" name="first_name" type="text" className="validate" onChange={handleChange} value={editData.first_name} />
@@ -92,7 +90,7 @@ const Profile = (props) => {
         <label  class="active" for="last_name">Last Name</label>
       </div>
     </div>
-    <div class="row">
+    {/* <div class="row">
       <div class="input-field col s6">
         <i class="material-icons prefix">account_circle</i>
         <input id="username" name="username" type="text" className="validate" onChange={handleChange} value={editData.username}/>
@@ -105,7 +103,7 @@ const Profile = (props) => {
           Helper text
         </span>
       </div>
-    </div>
+    </div> */}
     <div class="row">
       <div class="input-field col s6">
         <i class="material-icons prefix">mail</i>
