@@ -11,7 +11,8 @@ const PackageDetail = (props) => {
   const [cookies, setCookie, removeCookie] = useCookies(["userId", "username"]);
   const navigate = useNavigate();
   const [formData, setFormData] = useState([]);
-
+  const [userlist, setUserlist] = useState([]);
+  const [dataUser, setDataUser] = useState([]);
   const [editData, setEditData] = useState({});
   const token = { Authorization: `Bearer ${cookies.userId}` }
   const url = "http://localhost:8085/";
@@ -25,6 +26,21 @@ const PackageDetail = (props) => {
         agentId: parseInt(jwt_decode(cookies.userId).sub),
         isDraft: true,
       }));
+      const agentId = parseInt( jwt_decode(cookies.userId).sub)
+      axios.get(url + "agent-user/all/"+agentId,{headers: token})
+      .then((res) => {
+        console.log(res.data);
+        const detail = res.data
+        // const arr = [];
+        // detail.map((ele) => {
+        //     arr.push(<option  value={`${ele.id}`} >
+        //         {ele.username}
+        //       </option>)
+        // });
+        // setDataUser(arr);
+        setDataUser(detail);
+    })
+        .catch((err) => {console.log(err);});
     }
     axios
       .get(url + "insure/"+parseInt(params.id),{headers: token})
@@ -34,6 +50,7 @@ const PackageDetail = (props) => {
           ...prevState,
           'premium': res.data.premium,
           'periodDay':res.data.periodDay,
+          'insureName': res.data.name,
         }))
       })
       .catch((err) => {
@@ -44,6 +61,7 @@ const PackageDetail = (props) => {
   //form state
   useEffect(()=>{
     setFormData(<form class="col s12" onSubmit={handleSubmit}>
+    
     <div class="row">
      
       <div class="input-field col s4">
@@ -185,37 +203,42 @@ const PackageDetail = (props) => {
 
   const handleFill = (e) => {
     e.preventDefault();
+    // console.log(dataUser.some(item => item.id == e.target.userId.value));
+    if(dataUser.some(item => item.id == e.target.userId.value)){
     axios
-      .get(url + "register/"+parseInt(jwt_decode(cookies.userId).sub),{headers: token})
+      .get("http://day4.test/api/tip/register/"+e.target.userId.value)
       .then((res) => {
         console.log(res);
-        const data = {...res.data.data,...editData,'id':null}
+        const data = {...res.data.data,...editData,
+          'id':null,
+          'userId':res.data.data.id,
+          'birthDate':res.data.data.birth_date,
+          'firstName':res.data.data.first_name,
+          'lastName':res.data.data.last_name,
+          'phoneNumber':res.data.data.phone_number,
+          'idCard':res.data.data.id_card,
+          
+        }
         setEditData(
           data)
       })
       .catch((err) => {
+        M.toast({html: "user not found", displayLength: 4000})
           console.log(err);
       });
-      
+    }else{ M.toast({html: "user not permission", displayLength: 4000})}
   };
 
   const handleSave = (e) => {
     e.preventDefault();
     console.log(editData);
-    // axios.defaults.xsrfCookieName = "csrftoken";
-    // axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios
       .post(url + "policy", editData,{headers: token})
       .then((res) => {
         console.log(res);
-        // let token = res.data.token.access;
-        // let username = res.data.token.username;
         if (cookies.userId) {
           navigate("/policy");
         } else navigate("/");
-        // localStorage.setItem("jwt", token);
-        // localStorage.setItem("username", username);
-        // document.cookies.set("jwt",token)
       })
       .catch((err) => {
         if (err.response.status === 400) {
@@ -228,21 +251,48 @@ const PackageDetail = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setEditData((prevState) => ({
-      ...prevState,
-      isDraft: false,
-    }))
-    handleSave(e);
+    // setEditData((prevState) => ({
+    //   ...prevState,
+    //   isDraft: false,
+    // }))
+    console.log(editData);
+    axios
+      .post(url + "policy", {...editData,isDraft: false, },{headers: token})
+      .then((res) => {
+        console.log(res);
+        if (cookies.userId) {
+          navigate("/policy");
+        } else navigate("/");
+      })
+      .catch((err) => {
+        if (err.response.status === 400) {
+          alert("username already exists");
+        } else {
+          console.log(err);
+        }
+      });
   }
-
+   
   return (
     <div className="card-regis z-depth-1">
       <div class="row pink ">
         <h4 className="white-text">Buy Insurance </h4>
       </div>
-      <button className="waves-effect waves-light btn" onClick={handleFill}>
-        <i class="material-icons left">cloud</i>Auto filled
-      </button>
+      <form  class="col s12" onSubmit={handleFill}>
+      <div class="row">
+      <div class="input-field col s4">
+        <i class="material-icons prefix"></i>
+        <input id="userId" name="userId" type="number"/>
+        <label  for="userId" >user id</label>
+      </div>
+    <div class="input-field col s3">
+    <input type="submit" value="autofill" className="waves-effect waves-light btn"/>
+      </div>
+      </div>
+            </form>
+    
+      
+      
       {formData}
     </div>
   );

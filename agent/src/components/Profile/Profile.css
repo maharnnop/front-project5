@@ -21,8 +21,8 @@
   margin: auto;
   align-items: center;
 }
-.con,.con img{
-  height: 800px;
+.card.horizontal.con,.card-image img {
+  height: auto;
 }
 @media screen and (max-width: 600px) {
   .container-signup{

@@ -3,44 +3,98 @@ import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./profile.css";
 import jwt_decode from "jwt-decode";
-import {  useCookies } from 'react-cookie';
+// import {encode,decode} from "cryptorjs";
+// require('cryptorjs')
+import { useCookies } from "react-cookie";
 import M from "materialize-css/dist/js/materialize.min.js";
 const Profile = (props) => {
-  const [cookies, setCookie,removeCookie] = useCookies(['userId','username']);
-    const params = useParams();
-    const navigate = useNavigate();
-    const [editData, setEditData] = useState({});
-    const [title,setTitle] = useState([]);
-    const [data, setData] = useState([]);
-    const url = "http://day4.test/api/tip/";
-  
+  const [cookies, setCookie, removeCookie] = useCookies(["userId", "username"]);
+  const params = useParams();
+  const agentId = parseInt( jwt_decode(cookies.userId).sub)
+  const navigate = useNavigate();
+  const [editData, setEditData] = useState({});
+  const [title, setTitle] = useState([]);
+  const [data, setData] = useState([]);
+  const [dataUser, setDataUser] = useState([]);
+  const token = { Authorization: `Bearer ${cookies.userId}` };
+  const url = "http://localhost:8085/";
+
   useEffect(() => {
-      M.AutoInit();
+    M.AutoInit();
     axios
-      .get(url + "register/"+params.id)
+      .get(url + "agent/" + agentId, { headers: token })
       .then((res) => {
         console.log(res);
-        setEditData(res.data.data)
-        
-        // M.FormSelect.init(res.data.data.title)
-      }).catch((err)=>{})
+        setEditData(res.data);
 
+        // M.FormSelect.init(res.data.data.title)
+      })
+      .catch((err) => {});
+
+      axios.get(url + "agent-user/all/"+agentId,{headers: token})
+      .then((res) => {
+        console.log(res.data);
+        const detail = res.data
+        const arr = [];
+        detail.forEach(ele => {
+            arr.push(<tr>
+                <td>{ele.id}</td>
+                <td>{ele.title}</td>
+                <td>{ele.firstName}</td>
+                <td>{ele.lastName}</td>
+                <td>{ele.username}</td>
+                <td>{ele.idCard}</td>
+                <td>{ele.email}</td>
+                <td><button onClick={()=>{handleDelete(ele.agentUserId)}}>Delete</button></td>
+              </tr>)
+        });
+        setDataUser(arr);
+        
+    }
+        )
+        .catch((err) => {
+              console.log(err);
+          });
+      
   }, []);
 
- 
- 
+  const handleChangeCheckbox = (e) => {
+    if (e.target.value === "on") {
+      setEditData((prevState) => ({
+        ...prevState,
+        isAgent: true,
+      }));
+    } else {
+      setEditData((prevState) => ({
+        ...prevState,
+        isAgent: false,
+      }));
+    }
+  };
+
   const handleChange = (e) => {
     setEditData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
     }));
   };
+  const handleDelete = (id) => {
+    console.log(id);
+    axios.delete(url + "agent-user/"+id,{headers: token})
+        .then((res)=>{
+          console.log(res)
+          navigate("/signup");})
+        .catch((err)=>{console.log(err);})
+  };
+
+
+
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put(url + "register/"+params.id ,editData)
+      .put(url + "agent/" + agentId, editData, { headers: token })
       .then((res) => {
         console.log(res);
         navigate("/dashboard");
@@ -53,46 +107,76 @@ const Profile = (props) => {
         }
       });
   };
-  
+  const handleAdd = (e) => {
+    e.preventDefault();
+    const addUser = {userId:e.target.userId.value, agentId:agentId}
+    axios
+      .post(url + "agent-user", addUser, { headers: token })
+      .then((res) => {
+        console.log(res);
+        navigate("/dashboard");
+      })
+      .catch((err) => {
+        if (err.response.status === 400) {
+          M.toast({html: "User Not found", displayLength: 4000})
+        } else {
+          console.log(err);
+        }
+      });
+  };
+
   return (
     <div className="card-regis ">
-      
-      <div className="card horizontal con" >
-            <div class="card-image">
-              <img
-                src="https://img.lovepik.com/background/20211030/medium/lovepik-highway-mobile-phone-wallpaper-background-image_400458398.jpg"
-                alt="i"
-              />
-            </div>
-            <div class="card-stacked">
-              <div class="z-depth-5 card-panel   blue darken-4">
-                <h5 className="grey-text text-lighten-5">Register</h5>
-              </div>
-              <div class="card-content">
-              <div class="row">
+      <div className="card horizontal con">
+        <div class="card-stacked">
+          <div class="z-depth-5 card-panel   blue darken-4">
+            <h5 className="grey-text text-lighten-5">Register</h5>
+          </div>
+          <div class="card-content">
+            <div class="row">
               <form class="col s12" onSubmit={handleSubmit}>
-    <div class="row">
-     
-      <div class="input-field col s4">
-        <i class="material-icons prefix"></i>
-        <select id="title" name="title" onChange={handleChange} defualValue={editData.title}>
-        <option value={editData.title} disabled selected>{editData.title}</option>
-          <option value="Ms.">Ms.</option>
-          <option value="Mr." >Mr.</option>
-        </select>
-     
-        <label>Title</label>
-      </div>
-      <div class="input-field col s4">
-        <input id="first_name" name="first_name" type="text" className="validate" onChange={handleChange} value={editData.first_name} />
-        <label class="active" for="first_name">First Name</label>
-      </div>
-      <div class="input-field col s4">
-        <input id="last_name" name="last_name" type="text" className="validate" onChange={handleChange} value={editData.last_name}/>
-        <label  class="active" for="last_name">Last Name</label>
-      </div>
-    </div>
-    <div class="row">
+                <div class="row">
+                  <div class="input-field col s4">
+                    <i class="material-icons prefix"></i>
+                    <input
+                      id="title"
+                      name="title"
+                      type="text"
+                      onChange={handleChange}
+                      value={editData.title}
+                    />
+                    <label class="active" for="title">
+                      Title
+                    </label>
+                  </div>
+                  <div class="input-field col s4">
+                    <input
+                      id="firstName"
+                      name="firstName"
+                      type="text"
+                      className="validate"
+                      onChange={handleChange}
+                      value={editData.firstName}
+                    />
+                    <label class="active" for="firstName">
+                      First Name
+                    </label>
+                  </div>
+                  <div class="input-field col s4">
+                    <input
+                      id="lastName"
+                      name="lastName"
+                      type="text"
+                      className="validate"
+                      onChange={handleChange}
+                      value={editData.lastName}
+                    />
+                    <label class="active" for="lastName">
+                      Last Name
+                    </label>
+                  </div>
+                </div>
+                {/* <div class="row">
       <div class="input-field col s6">
         <i class="material-icons prefix">account_circle</i>
         <input id="username" name="username" type="text" className="validate" onChange={handleChange} value={editData.username}/>
@@ -105,71 +189,249 @@ const Profile = (props) => {
           Helper text
         </span>
       </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s6">
-        <i class="material-icons prefix">mail</i>
-        <input id="email" name="email" type="email" className="validate" onChange={handleChange} value={editData.email}/>
-        <label class="active" for="email">Email</label>
-        <span class="helper-text" data-error="wrong" data-success="right">
-          Helper text
-        </span>
-      </div>
-      <div class="input-field col s6">
-        <i class="material-icons prefix">phone</i>
-        <input id="phone_number" name="phone_number" type="tel" className="validate" onChange={handleChange} value={editData.phone_number}/>
-        <label class="active" for="phone_number">Telephone</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s4">
-        <i class="material-icons prefix">place</i>
-        <input id="location1" name="location1" type="text" className="validate" onChange={handleChange} value={editData.location1}/>
-        <label class="active" for="location1">บ้านเลขที่</label>
-      </div>
-      <div class="input-field col s4">
-        <input id="location2" name="location2" type="text" className="validate" onChange={handleChange} value={editData.location2}/>
-        <label class="active" for="location2">ถนน</label>
-      </div>
-      <div class="input-field col s4">
-        <input id="location3" name="location3" type="text" className="validate" onChange={handleChange} value={editData.location3}/>
-        <label class="active" for="location3">ตำบล</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s4">
-        <i class="material-icons prefix"></i>
-        <input id="location4" name="location4" type="text" className="validate" onChange={handleChange} value={editData.location4}/>
-        <label class="active" for="location4">อำเภอ</label>
-      </div>
-      <div class="input-field col s4">
-        <input id="location5" name="location5" type="text" className="validate" onChange={handleChange} value={editData.location5}/>
-        <label class="active" for="location5">จังหวัด</label>
-      </div>
-      <div class="input-field col s4">
-        <input id="location6" name="location6" type="text" className="validate" onChange={handleChange} value={editData.location6}/>
-        <label class="active" for="location6">Post No.</label>
-      </div>
-    </div>
-    <div className="row">
-      <input
-        className="btn-large waves-effect waves-light pulse "
-        type="submit"
-        value="Edit"
-      />
-    </div>
-  </form>
-    
-      
-      </div>
-              </div>
-              
+    </div> */}
+                <div class="row">
+                  <div class="input-field col s4">
+                    <i class="material-icons prefix"></i>
+                    <label>
+                      <input
+                        type="checkbox"
+                        id="isAgent"
+                        name="isAgent"
+                        onChange={handleChangeCheckbox}
+                        disabled="disabled"
+                        checked={editData.isAgent ? "checked" : null}
+                      />
+                      <span>Agent</span>
+                    </label>
+                  </div>
+                  <div class="input-field col s4">
+                    <input
+                      id="licentNo"
+                      name="licentNo"
+                      type="text"
+                      className="validate"
+                      onChange={handleChange}
+                      value={editData.licentNo}
+                    />
+                    <label class="active" for="licentNo">
+                      Licent No
+                    </label>
+                  </div>
+                  <div class="input-field col s4">
+                    <input
+                      id="licentExp"
+                      name="licentExp"
+                      type="date"
+                      className="validate"
+                      onChange={handleChange}
+                      value={
+                        editData.licentExp
+                          ? editData.licentExp.split("T")[0]
+                          : null
+                      }
+                    />
+                    <label class="active" for="licentExp">
+                      Exp Date
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s6">
+                    <i class="material-icons prefix">mail</i>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      className="validate"
+                      onChange={handleChange}
+                      value={editData.email}
+                    />
+                    <label class="active" for="email">
+                      Email
+                    </label>
+                    <span
+                      class="helper-text"
+                      data-error="wrong"
+                      data-success="right"
+                    >
+                      Helper text
+                    </span>
+                  </div>
+                  <div class="input-field col s6">
+                    <i class="material-icons prefix">phone</i>
+                    <input
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      type="tel"
+                      className="validate"
+                      onChange={handleChange}
+                      value={editData.phoneNumber}
+                    />
+                    <label class="active" for="phoneNumber">
+                      Telephone
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s4">
+                    <i class="material-icons prefix">place</i>
+                    <input
+                      id="location1"
+                      name="location1"
+                      type="text"
+                      className="validate"
+                      onChange={handleChange}
+                      value={editData.location1}
+                    />
+                    <label class="active" for="location1">
+                      บ้านเลขที่
+                    </label>
+                  </div>
+                  <div class="input-field col s4">
+                    <input
+                      id="location2"
+                      name="location2"
+                      type="text"
+                      className="validate"
+                      onChange={handleChange}
+                      value={editData.location2}
+                    />
+                    <label class="active" for="location2">
+                      ถนน
+                    </label>
+                  </div>
+                  <div class="input-field col s4">
+                    <input
+                      id="location3"
+                      name="location3"
+                      type="text"
+                      className="validate"
+                      onChange={handleChange}
+                      value={editData.location3}
+                    />
+                    <label class="active" for="location3">
+                      ตำบล
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s4">
+                    <i class="material-icons prefix"></i>
+                    <input
+                      id="location4"
+                      name="location4"
+                      type="text"
+                      className="validate"
+                      onChange={handleChange}
+                      value={editData.location4}
+                    />
+                    <label class="active" for="location4">
+                      อำเภอ
+                    </label>
+                  </div>
+                  <div class="input-field col s4">
+                    <input
+                      id="location5"
+                      name="location5"
+                      type="text"
+                      className="validate"
+                      onChange={handleChange}
+                      value={editData.location5}
+                    />
+                    <label class="active" for="location5">
+                      จังหวัด
+                    </label>
+                  </div>
+                  <div class="input-field col s4">
+                    <input
+                      id="location6"
+                      name="location6"
+                      type="text"
+                      className="validate"
+                      onChange={handleChange}
+                      value={editData.location6}
+                    />
+                    <label class="active" for="location6">
+                      Post No.
+                    </label>
+                  </div>
+                </div>
+                <div className="row">
+                  <input
+                    className="btn-large waves-effect waves-light pulse "
+                    type="submit"
+                    value="Edit"
+                  />
+                </div>
+              </form>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="card horizontal con">
+        <div class="card-stacked">
+          <div class="z-depth-5 card-panel   blue darken-4">
+            <h5 className="grey-text text-lighten-5">User</h5>
+          </div>
+          <div class="card-content">
+            <div class="row">
+              <form class="col s12" onSubmit={handleAdd}>
+                <div class="row">
+                    
+                  <div class="input-field col s3">
+                    <i class="material-icons prefix"></i>
+                    <label>
+                      Add New User :
+                    </label>
+                  </div>
+                  <div class="input-field col s3">
+                    <input
+                      id="userId"
+                      name="userId"
+                      type="text"
+                      className="validate"
+                    />
+                    <label class="active" for="userId">
+                      User register No.
+                    </label>
+                  </div>
+                  <div class="input-field col s3">
+                    <input
+                    className="btn-large waves-effect waves-light pulse "
+                    type="submit"
+                    value="ADD"
+                  />
+                  </div>
+                 
+                </div>
+                
+              </form>
+            </div>
+            <div class="row">
+            <table className="striped  pink lighten-4  responsive-table">
+    <thead className="pink darken-4 grey-text text-lighten-5">
+      <tr > 
+            <th>Id</th>
+          <th>first_name</th>
+          <th>last_name</th>
+          <th>username</th>
+          <th>id_card</th>
+          <th>email</th>
+          <th></th>
+          <th></th>
+      </tr>
+    </thead>
 
-
-
-   
+    <tbody>
+      {dataUser}
+     
+    </tbody>
+  </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

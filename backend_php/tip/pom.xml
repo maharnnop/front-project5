@@ -61,6 +61,11 @@
 			<artifactId>jasperreports</artifactId>
 			<version>6.16.0</version>
 		</dependency>
+    <dependency>
+   <groupId>net.sf.jasperreports</groupId>
+   <artifactId>jasperreports-fonts</artifactId>
+   <version>6.0.0</version>
+</dependency>
 
   </dependencies>
 
@@ -71,7 +76,9 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
     </plugins>
+    
   </build>
+
   <repositories>
     <repository>
       <id>spring-milestones</id>

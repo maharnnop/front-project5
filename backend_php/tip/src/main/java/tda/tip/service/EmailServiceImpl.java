@@ -79,11 +79,11 @@ public class EmailServiceImpl implements EmailService {
 
 			// Adding the attachment
 			FileSystemResource file
-				= new FileSystemResource(
-					new File(details.getAttachment()));
+				= new FileSystemResource(new File("C:/Users/mahar/sei/projects/project5/backend_php/tip/policy.pdf"));
+
 
 			mimeMessageHelper.addAttachment(
-				file.getFilename(), file);
+				"policy.pdf", file);
 
 			// Sending the mail
 			javaMailSender.send(mimeMessage);

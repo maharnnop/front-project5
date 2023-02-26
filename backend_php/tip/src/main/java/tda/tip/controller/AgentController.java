@@ -1,7 +1,7 @@
 package tda.tip.controller;
 
 import java.util.List;
-import java.util.HashSet;
+// import java.util.HashSet;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +13,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.bind.annotation.RequestMapping;
+// import org.springframework.web.bind.annotation.RequestMethod;
+// import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import tda.tip.Repository.AgentRepository;
 import tda.tip.entity.Agent;
-import tda.tip.entity.EmployeeRole;
-import tda.tip.Repository.EmployeeRoleRepository;
+// import tda.tip.entity.AgentUser;
+// import tda.tip.Repository.AgentUserRepository;
 
 
 @RestController
@@ -49,18 +49,12 @@ public class AgentController {
     
 
     @PutMapping (value = "/agent/{id}")
-    public ResponseEntity<Agent> putEmployee(@PathVariable("id") int id,
-        @RequestParam("firstname") String firstname,
-        @RequestParam("lastname") String lastname,
-        @RequestParam("salary") int salary
-    ) {
+    public ResponseEntity<Agent> putEmployee(@PathVariable("id") int id, @RequestBody Agent edit) {
         Optional<Agent> opt = agentRepository.findById(id);
         if (!opt.isPresent())
             return new ResponseEntity<Agent>(HttpStatus.NOT_FOUND);
        
-        Agent agent = opt.get();
-        agent.setFirstName(firstname);
-        agent.setLastName(lastname);
+        Agent agent = edit;
         agentRepository.save(agent);
         return new ResponseEntity<Agent>(agent, HttpStatus.OK);
     }
@@ -82,22 +76,22 @@ public class AgentController {
     		// @RequestParam("lastname") String lastname,
     		// @RequestParam("salary") int salary
     ) {
-        // EmployeeRole empRole, empRole2;
-        // if (employeeRoleRepository.existsById(1)){
-        //     empRole=employeeRoleRepository.findById(1).get();
-        //     empRole2=employeeRoleRepository.findById(2).get();
+        // AgentUser empRole, empRole2;
+        // if (AgentUserRepository.existsById(1)){
+        //     empRole=AgentUserRepository.findById(1).get();
+        //     empRole2=AgentUserRepository.findById(2).get();
         // }
         // else{
-        //     empRole = new EmployeeRole("Programmer");
-        //     empRole2 = new EmployeeRole("Programmer2");
-        //     employeeRoleRepository.save(empRole);
-        //     employeeRoleRepository.save(empRole2);
+        //     empRole = new AgentUser("Programmer");
+        //     empRole2 = new AgentUser("Programmer2");
+        //     AgentUserRepository.save(empRole);
+        //     AgentUserRepository.save(empRole2);
         // }
         // // Employee emp = new Employee(firstname,lastname, salary);
-        // HashSet set = new HashSet<EmployeeRole>();
+        // HashSet set = new HashSet<AgentUser>();
         // set.add(empRole);
         // set.add(empRole2);
-        // emp.setEmployeeRoles(set);
+        // emp.setAgentUsers(set);
         agentRepository.save(agent);
         return new ResponseEntity<Agent>(agent, HttpStatus.OK);
     }

@@ -21,7 +21,7 @@ function Policy() {
         const arr = [];
         detail.forEach(ele => {
             arr.push(<tr>
-                <td>{ele.insureId}</td>
+                <td>{ele.insureName}</td>
                 <td>{ele.title}</td>
                 <td>{ele.firstName}</td>
                 <td>{ele.lastName}</td>
@@ -35,8 +35,8 @@ function Policy() {
                 <td>{ele.location4}</td>
                 <td>{ele.location5}</td>
                 <td>{ele.location6}</td> */}
-                <td><Link to={`/policy/${ele.id}`}>Edit</Link></td>
-                <td><button onClick={()=>{handleDelete(ele.id)}}>Delete</button></td>
+                <td><Link to={`/policy/${ele.id}`}>See Detail</Link></td>
+                {/* <td><button onClick={()=>{handleDelete(ele.id)}}>Delete</button></td> */}
               </tr>)
         });
         setData(arr);
@@ -64,7 +64,7 @@ function Policy() {
     <table className="striped  pink lighten-4  responsive-table">
     <thead className="pink darken-4 grey-text text-lighten-5">
       <tr > 
-            <th>insure_id</th>
+            <th>insure_name</th>
           <th>title</th>
           <th>first_name</th>
           <th>last_name</th>

@@ -17,11 +17,11 @@ public interface PolicyRepository extends JpaRepository <TipPolicy, Integer>
         public TipPolicy findByUserName(String userName);
 
         @Query(
-        value = "SELECT * FROM tip_policy WHERE agent_id = ?1 ",
+        value = "SELECT * FROM tip_policy WHERE agent_id = ?1 AND is_draft = false",
         nativeQuery = true)
         public Optional<List<TipPolicy>> findByAgentId(Integer id) ;
-        // @Query(
-        //     value = "SELECT * FROM agent WHERE id = ?1 ",
-        //     nativeQuery = true)
-        //     public Agent findByID(int id);
+        @Query(
+        value = "SELECT * FROM tip_policy WHERE agent_id = ?1 AND is_draft = true",
+        nativeQuery = true)
+        public Optional<List<TipPolicy>> findDraftByAgentId(Integer id) ;
 }

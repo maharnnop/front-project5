@@ -44,11 +44,11 @@ const SignUp = (props) => {
       .post(url + "signup",signUpData)
       .then((res) => {
         console.log(res);
-        M.toast({html: "Signup success naja", displayLength: 4000})
+        M.toast({html: "Signup success", displayLength: 4000})
         setCookie("userId", res.data.token, {path: "/"});
         setCookie("username", res.data.username, {path: "/"});
     
-        // navigate("/dashboard");
+        navigate("/");
         // localStorage.setItem("jwt", token);
         // localStorage.setItem("username", username);
         // document.cookies.set("jwt",token)
@@ -83,14 +83,8 @@ const SignUp = (props) => {
            
             <div class="input-field col s4">
               <i class="material-icons prefix"></i>
-              <select id="title" name="title" onChange={handleChange}>
-                <option value="" disabled selected>
-                  Title
-                </option>
-                <option value="Mr.">Mr.</option>
-                <option value="Ms.">Ms.</option>
-              </select>
-              <label>Title</label>
+              <input id="title" name="title" type="text" onChange={handleChange}/>
+              <label  for="title">Title</label>
             </div>
             <div class="input-field col s4">
               <input id="firstName" name="firstName" type="text" className="validate" onChange={handleChange}/>
