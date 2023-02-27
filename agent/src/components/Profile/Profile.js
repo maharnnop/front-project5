@@ -96,8 +96,9 @@ const Profile = (props) => {
     axios
       .put(url + "agent/" + agentId, editData, { headers: token })
       .then((res) => {
+        M.toast({html: "Profile updated", displayLength: 4000})
         console.log(res);
-        navigate("/dashboard");
+        navigate("/");
       })
       .catch((err) => {
         if (err.response.status === 400) {
@@ -113,8 +114,9 @@ const Profile = (props) => {
     axios
       .post(url + "agent-user", addUser, { headers: token })
       .then((res) => {
+        M.toast({html: "User updated", displayLength: 4000})
         console.log(res);
-        navigate("/dashboard");
+        navigate("/");
       })
       .catch((err) => {
         if (err.response.status === 400) {
@@ -129,7 +131,7 @@ const Profile = (props) => {
     <div className="card-regis ">
       <div className="card horizontal con">
         <div class="card-stacked">
-          <div class="z-depth-5 card-panel   blue darken-4">
+          <div class="z-depth-5 card-panel   pink darken-4">
             <h5 className="grey-text text-lighten-5">Register</h5>
           </div>
           <div class="card-content">
@@ -359,7 +361,7 @@ const Profile = (props) => {
                 </div>
                 <div className="row">
                   <input
-                    className="btn-large waves-effect waves-light pulse "
+                    className="btn waves-effect waves-light pulse pink lighten-3 "
                     type="submit"
                     value="Edit"
                   />
@@ -371,7 +373,7 @@ const Profile = (props) => {
       </div>
       <div className="card horizontal con">
         <div class="card-stacked">
-          <div class="z-depth-5 card-panel   blue darken-4">
+          <div class="z-depth-5 card-panel   pink darken-4">
             <h5 className="grey-text text-lighten-5">User</h5>
           </div>
           <div class="card-content">
@@ -398,7 +400,7 @@ const Profile = (props) => {
                   </div>
                   <div class="input-field col s3">
                     <input
-                    className="btn-large waves-effect waves-light pulse "
+                    className="btn waves-effect waves-light pulse  pink lighten-3"
                     type="submit"
                     value="ADD"
                   />
@@ -409,7 +411,7 @@ const Profile = (props) => {
               </form>
             </div>
             <div class="row">
-            <table className="striped  pink lighten-4  responsive-table">
+            <table className="striped centered pink lighten-4  responsive-table">
     <thead className="pink darken-4 grey-text text-lighten-5">
       <tr > 
             <th>Id</th>

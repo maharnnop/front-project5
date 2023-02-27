@@ -36,7 +36,7 @@ const SignUp = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+    M.toast({html: "Waiting process ", displayLength: 10000})
     console.log(signUpData.isAgent);
     // axios.defaults.xsrfCookieName = "csrftoken";
     // axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
@@ -66,14 +66,14 @@ const SignUp = (props) => {
     <div className="card-regis ">
       
       <div className="card horizontal con" >
-            <div class="card-image">
+            {/* <div class="card-image">
               <img
                 src="https://img.lovepik.com/background/20211030/medium/lovepik-highway-mobile-phone-wallpaper-background-image_400458398.jpg"
                 alt="i"
               />
-            </div>
+            </div> */}
             <div class="card-stacked">
-              <div class="z-depth-5 card-panel   blue darken-4">
+              <div class="z-depth-5 card-panel   pink darken-2">
                 <h5 className="grey-text text-lighten-5">Register</h5>
               </div>
               <div class="card-content">
@@ -181,7 +181,7 @@ const SignUp = (props) => {
           </div>
           <div className="row">
             <input
-              className="btn-large waves-effect waves-light pulse "
+              className="btn-large waves-effect waves-light pulse  pink darken-2"
               type="submit"
               value="Sign-Up"
             />

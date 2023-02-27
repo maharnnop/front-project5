@@ -108,7 +108,7 @@ public class PolicyController {
             String msgBody = "Comfirmation buy insuance ";
             details.setMsgBody(msgBody);
             details.setSubject("Policy Comfirm");
-            Optional<TipInsure> tipInsure = insureRepository.findById(editpolicy.getInsureId());
+            Optional<TipInsure> tipInsure = insureRepository.findById(editPolicy.getInsureId());
             try {        
         ObjectMapper mapObject = new ObjectMapper();
         Map < String, Object > mapObj = mapObject.convertValue(editPolicy, Map.class);

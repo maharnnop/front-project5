@@ -15,6 +15,7 @@ const Index = () =>{
   const [cookies, setCookie, removeCookie] = useCookies(["userId", "username"]);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
+ 
   // axios.defaults.xsrfCookieName = "csrftoken";
   // axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
   const url = "http://localhost:8085/";
@@ -42,7 +43,7 @@ const Index = () =>{
             const detail = res.data
             const arr = [];
             detail.forEach(ele => {
-              arr.push(<tr ><Link to={`/draft/${ele.id}`}>{ele.insureName} : {ele.firstName} - {ele.lastName}</Link></tr>)
+              arr.push(<tr ><Link to={`/draft/${ele.id}`}>Draft No. {ele.id} {ele.insureName} : {ele.firstName}  {ele.lastName}</Link></tr>)
             });
             setDraftData(arr);
             
@@ -52,11 +53,13 @@ const Index = () =>{
     }, []);
 
   return (
+    
+   
     <div >
       <h1 >Insurance Packages</h1>
       
       {/* <!-- Modal Trigger --> */}
-      {cookies.userId? <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Draft</a>:null}
+      {cookies.userId? <a class="waves-effect waves-light btn modal-trigger  pink lighten-4" href="#modal1">Draft</a>:null}
   
 
   {/* <!-- Modal Structure --> */}
@@ -88,6 +91,7 @@ const Index = () =>{
         {data}
         </div>
     </div>
+ 
   );
 };
 

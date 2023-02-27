@@ -91,7 +91,9 @@ const Index = () =>{
         <Package detail={6}  /> */}
         {data}
         </div>
+        
     </div>
+    
   );
 };
 

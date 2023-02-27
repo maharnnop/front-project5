@@ -23,7 +23,7 @@ const SignUp = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    M.toast({html: "Waiting process ", displayLength: 4000})
+    M.toast({html: "Waiting process ", displayLength: 10000})
     // axios.defaults.xsrfCookieName = "csrftoken";
     // axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios
@@ -152,7 +152,7 @@ const SignUp = (props) => {
           </div>
           <div className="row">
             <input
-              className="btn-large waves-effect waves-light pulse "
+              className="btn-large waves-effect waves-light pulse  indigo darken-2"
               type="submit"
               value="Sign-Up"
             />

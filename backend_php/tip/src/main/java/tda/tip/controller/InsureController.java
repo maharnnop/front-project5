@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 // import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 // import org.springframework.web.bind.annotation.RequestMapping;
 // import org.springframework.web.bind.annotation.RequestMethod;
 // import org.springframework.web.bind.annotation.RequestParam;
@@ -57,6 +58,16 @@ public class InsureController {
             return new ResponseEntity<TipInsure>(HttpStatus.NOT_FOUND);
        
             TipInsure editAgent = opt.get();
+        // editAgent.setAgentId(agentUser.getAgentId());
+        // editAgent.setUserId(agentUser.getUserId());
+        insureRepository.save(tipInsure);
+        return new ResponseEntity<TipInsure>(tipInsure, HttpStatus.OK);
+    }
+
+    @PostMapping (value = "/insure")
+    public ResponseEntity<TipInsure> postInsure( @RequestBody TipInsure tipInsure
+    ) {
+        
         // editAgent.setAgentId(agentUser.getAgentId());
         // editAgent.setUserId(agentUser.getUserId());
         insureRepository.save(tipInsure);

@@ -430,9 +430,15 @@ const PackageDetail = (props) => {
           <h5 className="indigo-text text-darken-3">
             name : {insureData.name}{" "}
           </h5>
-          <h6 className="">detail : {insureData.descript} </h6>
+          <div class="input-field col s8">
+
+          <h6 className="">{insureData.descript} </h6>
+          </div>
+          <div class="input-field col s4">
+
           <h6 className="">premium : {Intl.NumberFormat().format(insureData.premium)} Bath/year</h6>
           <h6 className="">protection : {insureData.period_day} days</h6>
+          </div>
           <div class="input-field col s12">
           <table className="striped centered indigo lighten-4  responsive-table">
             <thead className="indigo darken-4 grey-text text-lighten-5">

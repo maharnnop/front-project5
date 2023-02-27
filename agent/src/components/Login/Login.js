@@ -23,13 +23,13 @@ const Login = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+    M.toast({html: "Waiting process ", displayLength: 4000})
     // axios.defaults.xsrfCookieName = "csrftoken";
     // axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios
       .post(url + "login",loginData)
       .then((res) => {
-        M.toast({html: "Login success naja", displayLength: 4000})
+        M.toast({html: "Login success ", displayLength: 4000})
         console.log(res);
         // let token = res.data.token.access;
         // let username = res.data.token.username;

@@ -14,9 +14,10 @@ const PackageDetail = (props) => {
   const [userlist, setUserlist] = useState([]);
   const [dataUser, setDataUser] = useState([]);
   const [editData, setEditData] = useState({});
+  const [insureData, setInsureDta] = useState({});
   const token = { Authorization: `Bearer ${cookies.userId}` }
   const url = "http://localhost:8085/";
-
+  
   useEffect(() => {
     M.AutoInit();
     if (cookies.userId) {
@@ -43,9 +44,10 @@ const PackageDetail = (props) => {
         .catch((err) => {console.log(err);});
     }
     axios
-      .get(url + "insure/"+parseInt(params.id),{headers: token})
+      .get(url + "insure/"+parseInt(params.id))
       .then((res) => {
         console.log(res);
+        setInsureDta(res.data);
         setEditData((prevState) => ({
           ...prevState,
           'premium': res.data.premium,
@@ -117,10 +119,10 @@ const PackageDetail = (props) => {
       </div>
     </div>
     <div class="row">
+    <div class="row pink lighten-4">
+            <h5 className="pink-text text-darken-3">delivery address</h5>
+          </div>
     
-    <div class="row pink lighten-5">
-      <p>delivery address</p>
-    </div>
       <div class="input-field col s4">
         <i class="material-icons prefix">place</i>
         <input id="location1" name="location1" type="text" className="validate" onChange={handleChange} value={editData.location1}/>
@@ -150,9 +152,9 @@ const PackageDetail = (props) => {
         <label class="active" for="location6">Post No.</label>
       </div>
     </div>
-    <div class="row pink lighten-5">
-      <p>Beneficiary</p>
-    </div>
+    <div class="row pink lighten-4">
+            <h5 className="pink-text text-darken-3">Beneficiary</h5>
+          </div>
     <div class="row">
     <div class="input-field col s4">
         <i class="material-icons prefix"></i>
@@ -171,14 +173,19 @@ const PackageDetail = (props) => {
       </div>
       </div>
     <div className="row">
+    <div class="input-field col s6">
       <input
-        className="btn-large waves-effect waves-light pulse "
+        className="btn waves-effect waves-light pulse  pink lighten-2"
         type="submit"
         value="submit"
       />
-      <button className="waves-effect waves-light btn" onClick={handleSave}>
-        <i class="material-icons left">cloud</i>Save Draft
+      </div>
+      <div class="input-field col s6">
+
+      <button className="waves-effect waves-light btn  pink lighten-2" onClick={handleSave}>
+        <i class="material-icons left">add_circle</i>Save Draft
       </button>
+      </div>
     </div>
   </form>)
   },[editData])
@@ -230,15 +237,15 @@ const PackageDetail = (props) => {
   };
 
   const handleSave = (e) => {
+    M.toast({html: "waiting process", displayLength: 4000})
     e.preventDefault();
     console.log(editData);
     axios
       .post(url + "policy", editData,{headers: token})
       .then((res) => {
+        M.toast({html: "draft saved", displayLength: 4000})
         console.log(res);
-        if (cookies.userId) {
-          navigate("/policy");
-        } else navigate("/");
+        navigate("/");
       })
       .catch((err) => {
         if (err.response.status === 400) {
@@ -251,16 +258,14 @@ const PackageDetail = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setEditData((prevState) => ({
-    //   ...prevState,
-    //   isDraft: false,
-    // }))
+    M.toast({html: "waiting process", displayLength: 10000})
     console.log(editData);
     axios
       .post(url + "policy", {...editData,isDraft: false, },{headers: token})
       .then((res) => {
         console.log(res);
         if (cookies.userId) {
+          M.toast({html: "submit success", displayLength: 4000})
           navigate("/policy");
         } else navigate("/");
       })
@@ -274,6 +279,52 @@ const PackageDetail = (props) => {
   }
    
   return (
+    <>
+    
+    <div className="card-regis z-depth-1">
+    <div class="row  pink lighten-4">
+      <h4 className="pink-text text-darken-3">Insurance Detail</h4>
+    </div>
+    <div class="row ">
+      <h5 className="pink-text text-darken-3">
+        name : {insureData.name}{" "}
+      </h5>
+      <div class="input-field col s8">
+      <h6 className="">{insureData.descript} </h6>
+      </div>
+      <div class="input-field col s4">
+
+      <h6 className="">premium : {Intl.NumberFormat().format(insureData.premium)} Bath/year</h6>
+      <h6 className="">protection : {insureData.periodDay} days</h6>
+      </div>
+      <div class="input-field col s12">
+      <table className="striped centered pink lighten-4  responsive-table">
+        <thead className="pink darken-4 grey-text text-lighten-5">
+          <tr>
+            <th>CASE</th>
+            <th>compensation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>live until the end of protection</td>
+            <td>{Intl.NumberFormat().format(insureData.returnAlive)}</td>
+          </tr>
+          <tr>
+            <td>death during the protection period</td>
+            <td>{Intl.NumberFormat().format(insureData.returnDead)}</td>
+          </tr>
+          <tr>
+            <td>permanent disability</td>
+            <td>{Intl.NumberFormat().format(insureData.returnDisability)}</td>
+          </tr>
+          
+          
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
     <div className="card-regis z-depth-1">
       <div class="row pink ">
         <h4 className="white-text">Buy Insurance </h4>
@@ -286,7 +337,7 @@ const PackageDetail = (props) => {
         <label  for="userId" >user id</label>
       </div>
     <div class="input-field col s3">
-    <input type="submit" value="autofill" className="waves-effect waves-light btn"/>
+    <input type="submit" value="autofill" className="waves-effect waves-light btn pink lighten-3"/>
       </div>
       </div>
             </form>
@@ -295,6 +346,7 @@ const PackageDetail = (props) => {
       
       {formData}
     </div>
+    </>
   );
 };
 
