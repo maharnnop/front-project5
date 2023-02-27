@@ -184,7 +184,7 @@ const Draft = (props) => {
     
     e.preventDefault();
     console.log(editData);
-    M.toast({html: "wait process", displayLength: 4000})
+    M.toast({html: "wait process", displayLength: 10000})
     // axios.defaults.xsrfCookieName = "csrftoken";
     // axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios

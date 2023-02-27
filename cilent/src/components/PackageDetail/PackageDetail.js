@@ -377,7 +377,7 @@ const PackageDetail = (props) => {
 
   const handleSave = (e) => {
     e.preventDefault();
-    M.toast({ html: "wait process ", displayLength: 4000 });
+    M.toast({ html: "wait process ", displayLength: 10000 });
     // console.log(editData);
     // axios.defaults.xsrfCookieName = "csrftoken";
     // axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
@@ -401,7 +401,7 @@ const PackageDetail = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    M.toast({ html: "wait process ", displayLength: 4000 });
+    M.toast({ html: "wait process ", displayLength: 10000 });
     axios
       .post(url + "policy", { ...editData, is_draft: false })
       .then((res) => {
@@ -431,8 +431,9 @@ const PackageDetail = (props) => {
             name : {insureData.name}{" "}
           </h5>
           <h6 className="">detail : {insureData.descript} </h6>
-          <h6 className="">premium : {insureData.premium} Bath/year</h6>
+          <h6 className="">premium : {Intl.NumberFormat().format(insureData.premium)} Bath/year</h6>
           <h6 className="">protection : {insureData.period_day} days</h6>
+          <div class="input-field col s12">
           <table className="striped centered indigo lighten-4  responsive-table">
             <thead className="indigo darken-4 grey-text text-lighten-5">
               <tr>
@@ -443,20 +444,21 @@ const PackageDetail = (props) => {
             <tbody>
               <tr>
                 <td>live until the end of protection</td>
-                <td>{insureData.return_alive}</td>
+                <td>{Intl.NumberFormat().format(insureData.return_alive)}</td>
               </tr>
               <tr>
                 <td>death during the protection period</td>
-                <td>{insureData.return_dead}</td>
+                <td>{Intl.NumberFormat().format(insureData.return_dead)}</td>
               </tr>
               <tr>
                 <td>permanent disability</td>
-                <td>{insureData.return_disability}</td>
+                <td>{Intl.NumberFormat().format(insureData.return_disability)}</td>
               </tr>
               
               
             </tbody>
           </table>
+          </div>
         </div>
       </div>
 

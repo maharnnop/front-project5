@@ -21,7 +21,8 @@ function Policy() {
         const arr = [];
         detail.forEach(ele => {
             arr.push(<tr>
-                <td>{ele.insure_id}</td>
+                <td>{ele.id}</td>
+                <td>{ele.insure_name}</td>
                 <td>{ele.title}</td>
                 <td>{ele.first_name}</td>
                 <td>{ele.last_name}</td>
@@ -29,8 +30,8 @@ function Policy() {
                 <td>{ele.end_date}</td>
                 {/* <td>{ele.email}</td> */}
                 <td>{ele.premium}</td>
-                <td>{ele.benify_first_name}</td>
-                <td>{ele.benify_last_name}</td>
+                {/* <td>{ele.benify_first_name}</td> */}
+                {/* <td>{ele.benify_last_name}</td> */}
                 {/* <td>{ele.location3}</td>
                 <td>{ele.location4}</td>
                 <td>{ele.location5}</td>
@@ -61,10 +62,11 @@ function Policy() {
       }
  return (
     <div className="dashboard">
-    <table className="striped  pink lighten-4  responsive-table">
-    <thead className="pink darken-4 grey-text text-lighten-5">
+    <table className="striped  centered blue lighten-4 responsive-table">
+    <thead className="indigo darken-4 grey-text text-lighten-5">
       <tr > 
-            <th>insure_id</th>
+            <th>policy No.</th>
+          <th>package</th>
           <th>title</th>
           <th>first_name</th>
           <th>last_name</th>
@@ -73,8 +75,7 @@ function Policy() {
           <th>cover_date</th>
           <th>end_date</th>
           <th>premium</th>
-          <th>benify_first_name</th>
-          <th>benify_last_name</th>
+          
           {/* <th>location4</th>
           <th>location5</th>
           <th>location6</th> */}

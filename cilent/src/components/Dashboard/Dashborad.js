@@ -2,12 +2,15 @@ import React, { useState, useEffect, useScript } from "react";
 import jwt_decode from "jwt-decode";
 import { redirect, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import { useCookies } from 'react-cookie';
 import './Dashboard.css'
 import M from "materialize-css/dist/js/materialize.min.js";
 function Dashboard() {
     const [data, setData] = useState([]);
+    const [cookies, setCookie, removeCookie] = useCookies(["userId", "username"]);
     const navigate = useNavigate();
     const url = "http://day4.test/api/tip/";
+    const token = { Authorization: `Bearer ${cookies.userId}` };
     useEffect(() => {
         M.AutoInit();
 
@@ -48,7 +51,7 @@ function Dashboard() {
 
       const handleDelete = (id) =>{
         // e.preventDefault();
-        axios.delete(url + "register/"+id)
+        axios.delete(url + "register/"+id,{headers:token})
         .then((res)=>{
           console.log(res)
           navigate("/signup");})

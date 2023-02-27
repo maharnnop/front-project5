@@ -3,9 +3,9 @@ user story (agent part)
 /2.after submit send email comfirm (username password)
 /3.go to profile can edit detail and add new user for takecare (in profile detail have agent detail and all user detail) 
 /4.back to insure page
-X5.click card to see more detail top page are detail and score down for fill data to buy (need save draft)
+/5.click card to see more detail top page are detail and score down for fill data to buy (need save draft)
 /6.after click submit send email comfirm with policy pdf 
-X7.can save draft and back to buy after
+/7.can save draft and back to buy after
 /8.can see policy dashbord to see all policy used to buy
 X9.click each other for see full detail and click for dowload
 
@@ -15,8 +15,8 @@ user story
 /1.can see all insure
 /2.click card to see detail and buy without login send email with pdf comfirm
 /3.register --> send email comfirm
-X4.profile can edit your detail and see detail of agent that takecare you
-X5.need save draft when buy policy
+/4.profile can edit your detail and see detail of agent that takecare you
+/5.need save draft when buy policy
 /6.can see policy dashbord to see all policy used to buy
 X7.click each other for see full detail and click for dowload
 

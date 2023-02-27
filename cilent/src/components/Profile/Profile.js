@@ -5,6 +5,7 @@ import "./profile.css";
 import jwt_decode from "jwt-decode";
 import {  useCookies } from 'react-cookie';
 import M from "materialize-css/dist/js/materialize.min.js";
+import logo from './logo.jpeg';
 const Profile = (props) => {
   const [cookies, setCookie,removeCookie] = useCookies(['userId','username']);
     const params = useParams();
@@ -61,14 +62,14 @@ const Profile = (props) => {
       
       <div className="card horizontal con" >
             <div class="card-image">
-              <img
-                src="https://img.lovepik.com/background/20211030/medium/lovepik-highway-mobile-phone-wallpaper-background-image_400458398.jpg"
+              <img className="logo-signup"
+                src={logo}
                 alt="i"
               />
             </div>
             <div class="card-stacked">
               <div class="z-depth-5 card-panel   blue darken-4">
-                <h5 className="grey-text text-lighten-5">Register</h5>
+                <h5 className="grey-text text-lighten-5">Profile No. {editData.id}</h5>
               </div>
               <div class="card-content">
               <div class="row">

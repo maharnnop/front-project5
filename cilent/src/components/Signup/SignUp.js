@@ -23,13 +23,14 @@ const SignUp = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    M.toast({html: "Waiting process ", displayLength: 4000})
     // axios.defaults.xsrfCookieName = "csrftoken";
     // axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios
       .post(url + "register",signUpData)
       .then((res) => {
         console.log(res);
-        M.toast({html: "Signup success naja", displayLength: 4000})
+        M.toast({html: "Signup success ", displayLength: 4000})
         setCookie("userId", res.data.token, {path: "/"});
         setCookie("username", res.data.username, {path: "/"});
     
@@ -39,6 +40,7 @@ const SignUp = (props) => {
         // document.cookies.set("jwt",token)
       })
       .catch((err) => {
+        M.toast({html: "duplicate id card ", displayLength: 4000})
         if (err.response.status === 400) {
           alert("username already exists");
         } else {
@@ -53,7 +55,7 @@ const SignUp = (props) => {
       <div className="card horizontal con" >
             <div class="card-image">
               <img
-                src="https://img.lovepik.com/background/20211030/medium/lovepik-highway-mobile-phone-wallpaper-background-image_400458398.jpg"
+                src="https://www.bluechipthai.com/assets/images/tiph2.001(1).jpeg"
                 alt="i"
               />
             </div>
@@ -66,17 +68,13 @@ const SignUp = (props) => {
         <form class="col s12" onSubmit={handleSubmit}>
           <div class="row">
            
-            <div class="input-field col s4">
+    
+              <div class="input-field col s3">
               <i class="material-icons prefix"></i>
-              <select id="title" name="title" onChange={handleChange}>
-                <option value="" disabled selected>
-                  Title
-                </option>
-                <option value="Mr.">Mr.</option>
-                <option value="Ms.">Ms.</option>
-              </select>
-              <label>Title</label>
+              <input id="title" name="title" type="text" className="validate" onChange={handleChange}/>
+              <label for="title">Title</label>
             </div>
+         
             <div class="input-field col s4">
               <input id="first_name" name="first_name" type="text" className="validate" onChange={handleChange}/>
               <label for="first_name">First Name</label>

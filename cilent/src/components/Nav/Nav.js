@@ -3,6 +3,7 @@ import jwt_decode from "jwt-decode";
 import { redirect, useNavigate, Link } from "react-router-dom";
 import './Nav.css'
 import { Cookies, useCookies } from 'react-cookie';
+import M from "materialize-css/dist/js/materialize.min.js";
 // hamberger menu
 import * as FaIcons from 'react-icons/fa'
 import * as AiIcons from 'react-icons/ai';
@@ -19,6 +20,7 @@ function Nav() {
   const handleLogOut = (e) => {
     // localStorage.removeItem("jwt");
     // localStorage.removeItem("username");
+    M.toast({html: "Logout success ", displayLength: 4000})
     removeCookie("userId",{path: "/"});
     removeCookie("username",{path: "/"});
   };

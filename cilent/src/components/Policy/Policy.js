@@ -111,8 +111,8 @@ const Policy = (props) => {
     </div>
     <div class="row">
     
-    <div class="row pink lighten-5">
-      <p>delivery address</p>
+    <div class="row indigo lighten-4">
+    <h5 className="indigo-text text-darken-3">delivery address</h5>
     </div>
       <div class="input-field col s4">
         <i class="material-icons prefix">place</i>
@@ -143,9 +143,9 @@ const Policy = (props) => {
         <label class="active" for="location6">Post No.</label>
       </div>
     </div>
-    <div class="row pink lighten-5">
-      <p>Beneficiary</p>
-    </div>
+    <div class="row indigo lighten-4">
+            <h5 className="indigo-text text-darken-3">Beneficiary</h5>
+          </div>
     <div class="row">
     <div class="input-field col s4">
         <i class="material-icons prefix"></i>
@@ -204,8 +204,8 @@ const Policy = (props) => {
 
   return (
     <div className="card-regis z-depth-1">
-        <div class="row pink ">
-            <h4 className="white-text">Policy No. {editData.id} : {editData.insure_name}</h4>
+        <div class="row indigo lighten-4">
+            <h4 className="indigo-text text-darken-3">Policy No. {editData.id} : {editData.insure_name}</h4>
           </div>
        {formData}
     </div>
