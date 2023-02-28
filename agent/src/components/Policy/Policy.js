@@ -206,7 +206,7 @@ const Policy = (props) => {
   return (
     <div className="card-regis z-depth-1">
         <div class="row pink ">
-            <h4 className="white-text">{editData['insureName']}</h4>
+            <h4 className="white-text">Policy No. {editData.id} : {editData['insureName']}</h4>
           </div>
           {formData}
     </div>

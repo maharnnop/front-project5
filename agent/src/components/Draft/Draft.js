@@ -66,12 +66,13 @@ const Draft = (props) => {
     }));
   };
   const handleSubmit = (e) => {
-    
+    M.toast({html: "waiting process", displayLength: 10000})
     e.preventDefault();
     
     axios
       .put(url + "policy/"+params.id,editData,{headers: token})
       .then((res) => {
+        M.toast({html: "submit success", displayLength: 4000})
         console.log(res);
         navigate("/policy");
       

@@ -271,7 +271,7 @@ const PackageDetail = (props) => {
       })
       .catch((err) => {
         if (err.response.status === 400) {
-          alert("username already exists");
+          M.toast({html: "submit failed", displayLength: 4000})
         } else {
           console.log(err);
         }

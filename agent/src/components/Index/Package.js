@@ -13,7 +13,7 @@ return (
 <div className="main ">
 <div className="card ">
     <div className="card-image waves-effect waves-block waves-light">
-        <img className="activator" src="https://yt3.googleusercontent.com/ytc/AL5GRJUotvw7bfLarOOUXvoc9cPU2yQPrZAU-mqMVoNGyg=s900-c-k-c0x00ffffff-no-rj" alt="img-card"/>
+        <img className="activator" src="https://www.sequelonline.com/wp-content/uploads/2016/06/jnFeEp6T-300x300.jpg" alt="img-card"/>
     </div>
     <div className="card-content">
       <span className="card-title activator grey-text text-darken-4">{props.detail.name}<i className="material-icons right">more_vert</i></span>

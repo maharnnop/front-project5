@@ -132,7 +132,7 @@ const Profile = (props) => {
       <div className="card horizontal con">
         <div class="card-stacked">
           <div class="z-depth-5 card-panel   pink darken-4">
-            <h5 className="grey-text text-lighten-5">Register</h5>
+            <h5 className="grey-text text-lighten-5">Agent No. {editData.id}</h5>
           </div>
           <div class="card-content">
             <div class="row">
@@ -394,7 +394,7 @@ const Profile = (props) => {
                       type="text"
                       className="validate"
                     />
-                    <label class="active" for="userId">
+                    <label  for="userId">
                       User register No.
                     </label>
                   </div>

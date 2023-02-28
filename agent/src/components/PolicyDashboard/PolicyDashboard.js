@@ -62,7 +62,7 @@ function Policy() {
       }
  return (
     <div className="dashboard">
-    <table className="striped centereds pink lighten-4  responsive-table">
+    <table className="striped centered pink lighten-4  responsive-table">
     <thead className="pink darken-4 grey-text text-lighten-5">
       <tr > 
       <th>Policy No.</th>

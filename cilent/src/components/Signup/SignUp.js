@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 import jwt_decode from "jwt-decode";
 import { useCookies } from 'react-cookie';
+import logo from './logo.jpeg';
 import M from "materialize-css/dist/js/materialize.min.js";
 const SignUp = (props) => {
   useEffect(() => {
@@ -34,7 +35,7 @@ const SignUp = (props) => {
         setCookie("userId", res.data.token, {path: "/"});
         setCookie("username", res.data.username, {path: "/"});
     
-        navigate("/dashboard");
+        navigate("/");
         // localStorage.setItem("jwt", token);
         // localStorage.setItem("username", username);
         // document.cookies.set("jwt",token)
@@ -55,7 +56,7 @@ const SignUp = (props) => {
       <div className="card horizontal con" >
             <div class="card-image">
               <img
-                src="https://www.bluechipthai.com/assets/images/tiph2.001(1).jpeg"
+                src={logo}
                 alt="i"
               />
             </div>

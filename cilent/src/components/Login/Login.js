@@ -34,7 +34,7 @@ const Login = (props) => {
         // let username = res.data.token.username;
         setCookie("userId", res.data.token, {path: "/"});
         setCookie("username", res.data.username, {path: "/"});
-        navigate("/dashboard");
+        navigate("/");
         // localStorage.setItem("username", username);
         // document.cookies.set("jwt",token)
       })

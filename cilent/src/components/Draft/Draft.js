@@ -206,7 +206,7 @@ const Draft = (props) => {
   return (
     <div className="card-regis z-depth-1">
         <div class="row pink ">
-            <h4 className="white-text">Edit Insurance</h4>
+            <h4 className="white-text">Draft No. {editData.id} : {editData.insure_name}</h4>
           </div>
        {formData}
     </div>

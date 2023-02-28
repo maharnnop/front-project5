@@ -323,18 +323,21 @@ const PackageDetail = (props) => {
           </div>
         </div>
         <div className="row">
+        <div class="input-field col s6">
           <input
-            className="btn-large waves-effect waves-light pulse "
+            className="btn waves-effect waves-light pulse indigo lighten-3"
             type="submit"
             value="submit"
-          />
+          /></div>
           {cookies.userId ? (
+            <div class="input-field col s6">
             <button
-              className="waves-effect waves-light btn"
+              className="waves-effect waves-light btn indigo lighten-3"
               onClick={handleSave}
             >
               <i class="material-icons left">cloud</i>Save Draft
             </button>
+            </div>
           ) : null}
         </div>
       </form>
@@ -386,9 +389,7 @@ const PackageDetail = (props) => {
       .then((res) => {
         console.log(res);
         M.toast({ html: "save draft complete ", displayLength: 4000 });
-        if (cookies.userId) {
-          navigate("/policy");
-        } else navigate("/");
+        navigate("/");
       })
       .catch((err) => {
         if (err.response.status === 400) {
@@ -413,7 +414,7 @@ const PackageDetail = (props) => {
       })
       .catch((err) => {
         if (err.response.status === 400) {
-          alert("username already exists");
+          M.toast({ html: "submit failed ", displayLength: 4000 });
         } else {
           console.log(err);
         }

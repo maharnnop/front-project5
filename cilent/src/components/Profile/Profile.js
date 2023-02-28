@@ -46,7 +46,7 @@ const Profile = (props) => {
       .then((res) => {
         M.toast({html: "profile updated ", displayLength: 4000})
         console.log(res);
-        navigate("/dashboard");
+        navigate("/");
       })
       .catch((err) => {
         if (err.response.status === 400) {
